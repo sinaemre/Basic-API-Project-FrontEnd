@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+       function yukle() {
+        // document.getElementById("deger").innerHTML;
+        fetch('http://localhost:5295/api/Categories')
+            .then(response => response.json())
+            .then(data =>  {
+                var liste = document.getElementById("liste");
+                data.forEach(element => {
+                    var li = document.createElement("li");
+                    li.appendChild(document.createTextNode(element.name));
+                    liste.appendChild(li);
+                });
+              });
+       }
+
+        
+    </script>
+</head>
+<body onload="yukle()" >
+    <div id="deger" style="margin-top: 50px; font-size: large;">
+        Kategoriler: 
+        <ul id="liste">
+            
+        </ul>
+    </div>
+</body>
+</html>
