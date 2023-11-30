@@ -1,33 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
     <title>Document</title>
     <script>
-       function yukle() {
-        // document.getElementById("deger").innerHTML;
-        fetch('http://localhost:5295/api/Categories')
-            .then(response => response.json())
-            .then(data =>  {
-                var liste = document.getElementById("liste");
-                data.forEach(element => {
-                    var li = document.createElement("li");
-                    li.appendChild(document.createTextNode(element.name));
-                    liste.appendChild(li);
-                });
-              });
-       }
+      function yukle() {
+        fetch("http://localhost:5295/api/Categories")
+          .then((response) => response.json())
+          .then((data) => {
+            var table = document.getElementById("categories");
 
-        
+            data.forEach((element) => {
+            //   console.log(element);
+              var tr = document.createElement("tr");
+              var td1 = document.createElement("td");
+              var td2 = document.createElement("td");
+              var td3 = document.createElement("td");
+              var td4 = document.createElement("td");
+              var td5 = document.createElement("td");
+              var td6 = document.createElement("td");
+
+              td1.appendChild(document.createTextNode(element.id));
+              td2.appendChild(document.createTextNode(element.name));
+              td3.appendChild(document.createTextNode(element.description));
+              td4.appendChild(document.createTextNode(new Date(element.createdDate).toLocaleDateString('tr-TR')));
+
+
+              var buttonUpdate = document.createElement("a");
+              buttonUpdate.classList.add('btn');
+              buttonUpdate.classList.add('btn-outline-success');
+              buttonUpdate.appendChild(document.createTextNode("Update"))
+             
+              var buttonDelete = document.createElement("a");
+              buttonDelete.classList.add('btn');
+              buttonDelete.classList.add('btn-outline-danger');
+              buttonDelete.appendChild(document.createTextNode("Delete"))
+
+              td5.appendChild(buttonUpdate);
+              td6.appendChild(buttonDelete);
+              
+
+              tr.appendChild(td1);
+              tr.appendChild(td2);
+              tr.appendChild(td3);
+              tr.appendChild(td4);
+              tr.appendChild(td5);
+              tr.appendChild(td6);
+
+              table.appendChild(tr);
+            });
+          });
+      }
     </script>
-</head>
-<body onload="yukle()" >
-    <div id="deger" style="margin-top: 50px; font-size: large;">
-        Kategoriler: 
-        <ul id="liste">
-            
-        </ul>
+  </head>
+  <body onload="yukle()">
+    <div class="row d-flex justify-content-center mt-3">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Kategoriler</h3>
+          </div>
+          <div class="card-body">
+            <div class="table table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                     <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Created Date</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                     </tr>
+                    </thead>
+                    <tbody id="categories">
+                    </tbody>
+                 </table>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
