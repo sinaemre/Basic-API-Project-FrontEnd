@@ -11,47 +11,17 @@
     />
     <title>Document</title>
 
-    <script>
-      window.onload = function () {
-        var queryString = decodeURIComponent(window.location.search);
-            queryString = queryString.substring(4);
+    <script src="JavaScript/index.js"></script>
 
-
-            fetch("http://localhost:5295/api/Categories/" + queryString)
-            .then((response) => response.json())
-            .then((data) => {
-                document.getElementById("id").value = data.id;
-                document.getElementById("name").value = data.name;
-                document.getElementById("description").value = data.description;
-            })
-
-        
-      };
-
-      function updateCategory() {
-        event.preventDefault();
-
-        let form = document.getElementById("form");
-        const data = new FormData(form);
-        try {
-              const result = fetch("http://localhost:5295/api/Categories", {
-                method: "PUT",
-                body: data,
-              }).then((window.location.href = "index.html"));
-            } catch (err) {
-              console.log(err.message);
-            }
-          };
-    </script>
   </head>
-  <body>
+  <body onload="updateCategoryGet()">
     <div class="row d-flex justify-content-center mt-2">
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">
             <h3 class="card-title">Update Category</h3>
           </div>
-          <form id="form" onsubmit="updateCategory()">
+          <form id="formUpdate" onsubmit="updateCategory()">
             <input type="hidden" name="id" id="id">
             <div class="card-body">
               <div>

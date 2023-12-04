@@ -10,23 +10,8 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
-    <script>
-        function loadCategory() {
+    <script src="JavaScript/index.js"></script>
 
-            var queryString = decodeURIComponent(window.location.search);
-            queryString = queryString.substring(4);
-
-            fetch("http://localhost:5295/api/Categories/" + queryString)
-            .then((response) => response.json())
-            .then((data) => {
-                document.getElementById("categoryId").innerHTML = data.id;
-                document.getElementById("categoryName").innerHTML = data.name;
-                document.getElementById("categoryDescription").innerHTML = data.description;
-                document.getElementById("categoryCreatedDate").innerHTML = new Date(data.createdDate).toLocaleDateString("tr-TR");
-            })
-
-          }
-    </script>
 </head>
 <body onload="loadCategory()">
     <div class="row d-flex justify-content-center mt-2">
