@@ -13,32 +13,35 @@
 
     <script>
       window.onload = function () {
+        var queryString = decodeURIComponent(window.location.search);
+            queryString = queryString.substring(4);
+
+
+            fetch("http://localhost:5295/api/Categories/" + queryString)
+            .then((response) => response.json())
+            .then((data) => {
+                document.getElementById("id").value = data.id;
+                document.getElementById("name").value = data.name;
+                document.getElementById("description").value = data.description;
+            })
+
+        
+      };
+
+      function updateCategory() {
+        event.preventDefault();
+
         let form = document.getElementById("form");
-        if (form) {
-          form.addEventListener("submit", (event) => {
-
-            //Sayfanın yeniden yüklenmesini engeller!
-            event.preventDefault();
-
-            const data = new FormData(form);
-
-            console.log(Array.from(data));
-
-            try {
+        const data = new FormData(form);
+        try {
               const result = fetch("http://localhost:5295/api/Categories", {
-                method: "POST",
+                method: "PUT",
                 body: data,
               }).then((window.location.href = "index.html"));
-
-              const response = result.json();
-
-              console.log(response);
             } catch (err) {
               console.log(err.message);
             }
-          });
-        }
-      };
+          };
     </script>
   </head>
   <body>
@@ -46,9 +49,10 @@
       <div class="col-md-8">
         <div class="card">
           <div class="card-header">
-            <h3 class="card-title">Create Category</h3>
+            <h3 class="card-title">Update Category</h3>
           </div>
-          <form id="form">
+          <form id="form" onsubmit="updateCategory()">
+            <input type="hidden" name="id" id="id">
             <div class="card-body">
               <div>
                 <label for="" class="form-label fs-4"> Name: </label>

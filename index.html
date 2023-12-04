@@ -45,6 +45,7 @@
               buttonUpdate.id = "updatebtn" + element.id;
               buttonUpdate.classList.add("btn");
               buttonUpdate.classList.add("btn-outline-success");
+              buttonUpdate.href = "UpdateCategory.html?id=" + element.id;
               buttonUpdate.appendChild(document.createTextNode("Update"));
 
               var buttonDelete = document.createElement("a");
